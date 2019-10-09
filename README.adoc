@@ -47,3 +47,30 @@ is `foo.bar=baz`
 
 | name      | Used as part of the registry URL as well as the OCI label specifications    | `quay.io/littlemanco/drone/container-builder`, `org.opencontainers.image.ref.name=container-builder`, `org.opencontainers.image.ref.title=Container Builder`
 |===
+
+== Development
+
+=== Git Hooks
+
+There are a series of git hooks that provide fast feedback to users about violations to code style, failing tests and
+so fourth before committing. To enable these git hooks run:
+
+[source,bash]
+----
+git config hooksPath $(git rev-parse --show-toplevel)/bin
+----
+
+Parts of the hooks can be disabled with the following configuration:
+
+|===
+| Configuraton   | Result
+
+| lint           | Disable (or enable) lints.
+|===
+
+Apply the configuration by running:
+
+[source,bash]
+----
+git config --bool hooks.${CONFIGURATION_PATH} true|false
+----

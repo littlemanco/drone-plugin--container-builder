@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# See https://l.littleman.co/2lPYiWu
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+
+# To disable linting run `git config --bool hooks.lint=false`
+ENABLE_LINT=$(git config --bool hooks.lint) || ENABLE_LINT="true"
+
+exec 1>&2
+
+if [ "$ENABLE_LINT" != "true" ]; then
+	echo 'Lints are disabled. See `$ git config --bool hooks.lint`'
+	exit 0
+fi
+
+# Golang
+cd "${ROOT_DIR}/src"
+GO_FILES="$(git diff --cached --name-only --diff-filter=dr --relative . | grep '.go$' || true)"
+GO_LINT="golangci-lint run --enable-all ."
+
+if [[ ! -z "$GO_FILES" ]]; then
+	$GO_LINT
+fi
