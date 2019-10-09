@@ -1,0 +1,49 @@
+= Container Builder (Drone Plugin)
+
+CAUTION: This project is under active development. It has reached stability when it has the semantic version "1.0.0" or
+         above, as indicated by the git tag.
+
+== Purpose
+
+This project allows the creation of docker images according to the styleguide in the 
+https://www.littleman.co/documentation/styleguides/software/containers/[littleman.co documentation]. This includes
+the following guidelines:
+
+- OCI Labels such as `org.opencontainers.image.ref.name`
+- Image tags with the git hash, git tag (if it exists) and conditionally on the branch master, `:latest`
+- Allowing scheduled rebuilds
+
+The plugin is written for consumption by the drone.io[https://drone.io/] open source build tooling.
+
+== Usage
+
+Not yet documented
+
+== Configuration
+
+=== Example
+
+[source,yaml]
+----
+---
+name: "Container Builder"
+----
+
+=== Reference
+
+Nested configuration is described by dot notation. For example, 
+
+[source,yaml]
+----
+foo:
+  bar: "baz"
+----
+
+is `foo.bar=baz`
+
+[cols="2,4,4"]
+|===
+| Parameter | Usage                                                                       | Examples
+
+| name      | Used as part of the registry URL as well as the OCI label specifications    | `quay.io/littlemanco/drone/container-builder`, `org.opencontainers.image.ref.name=container-builder`, `org.opencontainers.image.ref.title=Container Builder`
+|===
