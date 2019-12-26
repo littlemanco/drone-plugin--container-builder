@@ -1,0 +1,39 @@
+---
+kind: pipeline
+name: lint
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: lint
+  image: golangci/golangci-lint:v1.21.0
+  commands:
+  - cd src && golangci-lint run .
+
+trigger:
+  event:
+  - push
+  - pull_request
+
+---
+kind: pipeline
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: test
+  image: golang:1.13-buster
+  commands:
+  - cd src && go test ./...
+
+trigger:
+  event:
+  - push
+  - pull_request
+
+...
