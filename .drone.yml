@@ -10,7 +10,7 @@ steps:
 - name: lint
   image: golangci/golangci-lint:v1.21.0
   commands:
-  - cd src && golangci-lint run .
+  - cd src && golangci-lint run --timeout 5m0s 
 
 trigger:
   event:
